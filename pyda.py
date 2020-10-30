@@ -1,7 +1,8 @@
 # Get access to wolfram Alpha, where it ask you something and give you an answer.
 import wolframalpha
 client = wolframalpha.Client('V4L279-552P4V4JW3')
-
+#Importing Wikipedia 
+import wikipedia
 # Next is creating a User interface which is a GUI that will make it appear on a window and not in a console.
 import PySimpleGUI as sg
 
@@ -15,9 +16,14 @@ while True:
     event, values = window.read()
     if event in (None, 'Cancel'):
         break
-    
     res = client.query(values[0])
+    wolfram_res = next(res.results).text
+    wiki_res =  wikipedia.summary(values[0], sentences=2)
+    sg.Popup("Wolfram Results :" +wolfram_res, "Wikepedia Result: " +wiki_res)
     
-    sg.Popup(next(res.results).text)
+    print(values[0])
 
 window.close()
+
+
+
